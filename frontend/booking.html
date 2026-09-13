@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Summary - EventSphere</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">EventSphere <span class="logo-badge">PRO</span></a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container" style="max-width: 800px; padding-top: 2rem;">
+            <h1 style="margin-bottom: 0.5rem;">Booking Summary</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Review your selected tickets and fee breakdown before proceeding to payment.</p>
+
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-lg);">
+                <div style="display: flex; gap: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 1.5rem; align-items: center;">
+                    <div id="summary-category-badge" class="badge" style="padding: 0.8rem 1.2rem; font-size: 1.5rem; border-radius: var(--radius-md);">🎟️</div>
+                    <div>
+                        <h3 id="summary-event-title" style="font-size: 1.4rem; margin-bottom: 0.4rem;">Event Title</h3>
+                        <div id="summary-event-date" style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.2rem;"></div>
+                        <div id="summary-event-venue" style="font-size: 0.9rem; color: var(--text-secondary);"></div>
+                    </div>
+                </div>
+
+                <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Price Calculation</h4>
+                
+                <table class="summary-table">
+                    <tr>
+                        <td>Ticket Quantity</td>
+                        <td id="summary-ticket-count">1 Ticket</td>
+                    </tr>
+                    <tr>
+                        <td>Price per Ticket</td>
+                        <td id="summary-ticket-price">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td id="summary-subtotal">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>Convenience Fee</td>
+                        <td id="summary-booking-fee">₹50</td>
+                    </tr>
+                    <tr>
+                        <td>GST (18%)</td>
+                        <td id="summary-tax">₹0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>Total Amount Payable</td>
+                        <td id="summary-total-amount">₹0</td>
+                    </tr>
+                </table>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <a href="javascript:history.back()" class="btn btn-secondary" style="flex: 1;">&larr; Modify Tickets</a>
+                    <button id="proceed-to-payment-btn" class="btn btn-primary" style="flex: 2;">Proceed to Payment &rarr;</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>

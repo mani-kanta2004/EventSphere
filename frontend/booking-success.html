@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Ticket - EventSphere</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+    <header class="navbar no-print">
+        <div class="container">
+            <a href="index.html" class="logo">EventSphere <span class="logo-badge">PRO</span></a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="no-print" style="text-align: center; margin: 2rem 0 1rem;">
+                <span style="font-size: 3rem;">🎉</span>
+                <h1 style="color: var(--success); margin-bottom: 0.5rem;">Booking Confirmed!</h1>
+                <p style="color: var(--text-secondary);">Your tickets have been reserved. Show this digital pass at the venue entrance.</p>
+            </div>
+
+            <!-- Digital Ticket Pass Printable Component -->
+            <div id="ticket-pass-card" class="ticket-card">
+                <div class="ticket-header">
+                    <div class="logo" style="font-size: 1.2rem;">EventSphere Ticket Pass</div>
+                </div>
+
+                <h2 id="tkt-event-title" style="font-size: 1.6rem; margin-bottom: 1rem;">Event Title</h2>
+
+                <div class="ticket-details-grid">
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">DATE & TIME</div>
+                        <div id="tkt-event-date" style="font-weight: 600;">Aug 25, 2026 at 06:00 PM</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">LOCATION & VENUE</div>
+                        <div id="tkt-event-venue" style="font-weight: 600;">YMCA Grounds, Chennai</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">TICKETS</div>
+                        <div id="tkt-count" style="font-weight: 600;">2 Ticket(s)</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">TOTAL PAID</div>
+                        <div id="tkt-amount" style="font-weight: 700; color: var(--success);">₹2,147</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">TRANSACTION ID</div>
+                        <div id="tkt-txn-id" style="font-family: monospace; font-size: 0.88rem;">TXN-8F29KDJ72</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted);">STATUS</div>
+                        <div style="font-weight: 700; color: var(--success);">CONFIRMED (PAID)</div>
+                    </div>
+                </div>
+
+                <div class="ticket-qr-placeholder">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EventSphere-Digital-Pass" alt="QR Code">
+                </div>
+                <div style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    Scan at venue entry gate
+                </div>
+            </div>
+
+            <div class="no-print" style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; margin-top: 2rem;">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button onclick="window.print()" class="btn btn-primary">🖨️ Download / Print Ticket</button>
+                    <a href="my-bookings.html" class="btn btn-secondary">View All My Bookings</a>
+                </div>
+                <div style="font-size: 0.82rem; color: var(--text-muted); text-align: center;">
+                    💡 <strong>PDF Export Tip:</strong> In the browser print dialog, click <em>More settings</em> and uncheck <em>Headers and footers</em> for a 100% clean PDF.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!requireAuth()) return;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingId = urlParams.get('id');
+
+            let booking = null;
+
+            const sessionStr = sessionStorage.getItem('eventsphere_recent_booking');
+            if (sessionStr) {
+                booking = JSON.parse(sessionStr);
+            }
+
+            if (!booking && bookingId) {
+                try {
+                    const res = await apiRequest(`/bookings/${bookingId}`, 'GET', null, true);
+                    if (res.success) booking = res.booking;
+                } catch (err) {}
+            }
+
+            if (booking) {
+                const event = booking.event || {};
+                document.getElementById('tkt-ticket-id').textContent = booking.ticketId;
+                document.getElementById('tkt-event-title').textContent = event.title || 'Event Title';
+                document.getElementById('tkt-event-date').textContent = `${formatDate(event.date)} at ${event.time}`;
+                document.getElementById('tkt-event-venue').textContent = `${event.venue || ''}, ${event.location || ''}`;
+                document.getElementById('tkt-count').textContent = `${booking.ticketCount} Ticket(s)`;
+                document.getElementById('tkt-amount').textContent = formatINR(booking.amount);
+                document.getElementById('tkt-txn-id').textContent = booking.transactionId;
+            }
+        });
+    </script>
+</body>
+</html>

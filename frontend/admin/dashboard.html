@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - EventSphere</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <!-- Chart.js CDN for Analytics Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="dashboard.html" class="logo">
+                EventSphere <span class="logo-badge" style="background: var(--secondary);">ADMIN</span>
+            </a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <!-- Admin Layout -->
+    <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <a href="dashboard.html" class="admin-nav-item active">📊 Dashboard Overview</a>
+            <a href="events.html" class="admin-nav-item">📅 Events Catalog</a>
+            <a href="create-event.html" class="admin-nav-item">➕ Create Event</a>
+            <a href="bookings.html" class="admin-nav-item">🎟️ All Bookings</a>
+            <a href="users.html" class="admin-nav-item">👥 Registered Users</a>
+        </aside>
+
+        <!-- Main Dashboard View -->
+        <main class="admin-main">
+            <div style="margin-bottom: 2rem;">
+                <h1>Analytics Dashboard</h1>
+                <p style="color: var(--text-secondary);">Real-time performance stats from MongoDB database.</p>
+            </div>
+
+            <!-- KPI Metric Cards Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card" style="border-color: var(--primary);">
+                    <div class="metric-title" style="color: var(--primary);">Total Events</div>
+                    <div id="stat-total-events" class="metric-value">0</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);"><span id="stat-upcoming-events">0</span> Upcoming</div>
+                </div>
+
+                <div class="metric-card" style="border-color: var(--success);">
+                    <div class="metric-title" style="color: var(--success);">Total Revenue</div>
+                    <div id="stat-total-revenue" class="metric-value" style="color: var(--success);">₹0</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">Paid bookings aggregate</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-title">Total Bookings</div>
+                    <div id="stat-total-bookings" class="metric-value">0</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">Successful reservations</div>
+                </div>
+
+                <div class="metric-card" id="metric-card-users">
+                    <div class="metric-title">Total Users</div>
+                    <div id="stat-total-users" class="metric-value">0</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">Registered accounts</div>
+                </div>
+
+                <div class="metric-card" id="metric-card-organisers">
+                    <div class="metric-title">Total Organizers</div>
+                    <div id="stat-total-organisers" class="metric-value">0</div>
+                    <div style="font-size:0.78rem; color:var(--text-muted);">Event hosts</div>
+                </div>
+            </div>
+
+            <!-- Interactive Dropdown Analytics Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                <!-- Revenue by Event Card -->
+                <div class="chart-card">
+                    <div class="chart-header" style="margin-bottom: 1rem;">
+                        <h3>Revenue by Event</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Select an event to view its total revenue & tickets sold</p>
+                    </div>
+                    <div style="margin-bottom: 1.25rem;">
+                        <select id="revenue-event-select" class="form-control" style="width: 100%; font-size: 0.95rem; padding: 0.5rem 0.75rem;">
+                            <option value="">-- Select Event --</option>
+                        </select>
+                    </div>
+                    <div id="revenue-event-details" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 1.25rem; display: none;">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.4rem;">Selected Event</div>
+                        <div id="event-detail-title" style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem;">-</div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.2rem;">Total Revenue</div>
+                                <div id="event-detail-revenue" style="font-size: 1.3rem; font-weight: 800; color: var(--success);">₹0</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.2rem;">Tickets Sold</div>
+                                <div id="event-detail-tickets" style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="revenue-event-empty" style="text-align: center; color: var(--text-secondary); padding: 2rem 1rem; font-size: 0.9rem;">
+                        No revenue recorded yet for events.
+                    </div>
+                </div>
+
+                <!-- Sales by Category Card -->
+                <div class="chart-card">
+                    <div class="chart-header" style="margin-bottom: 1rem;">
+                        <h3>Sales by Category</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.25rem;">Select a category to view category sales breakdown</p>
+                    </div>
+                    <div style="margin-bottom: 1.25rem;">
+                        <select id="sales-category-select" class="form-control" style="width: 100%; font-size: 0.95rem; padding: 0.5rem 0.75rem;">
+                            <option value="">-- Select Category --</option>
+                        </select>
+                    </div>
+                    <div id="sales-category-details" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 1.25rem; display: none;">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.4rem;">Selected Category</div>
+                        <div id="category-detail-name" style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1rem;">-</div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.2rem;">Total Revenue</div>
+                                <div id="category-detail-revenue" style="font-size: 1.3rem; font-weight: 800; color: var(--success);">₹0</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.2rem;">Total Tickets Sold</div>
+                                <div id="category-detail-tickets" style="font-size: 1.3rem; font-weight: 800; color: var(--secondary);">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sales-category-empty" style="text-align: center; color: var(--text-secondary); padding: 2rem 1rem; font-size: 0.9rem;">
+                        No sales recorded yet for categories.
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

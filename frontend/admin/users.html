@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users - EventSphere Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="dashboard.html" class="logo">EventSphere <span class="logo-badge" style="background: var(--secondary);">ADMIN</span></a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <a href="dashboard.html" class="admin-nav-item">📊 Dashboard Overview</a>
+            <a href="events.html" class="admin-nav-item">📅 Events Catalog</a>
+            <a href="create-event.html" class="admin-nav-item">➕ Create Event</a>
+            <a href="bookings.html" class="admin-nav-item">🎟️ All Bookings</a>
+            <a href="users.html" class="admin-nav-item active">👥 Registered Users</a>
+        </aside>
+
+        <main class="admin-main">
+            <div style="margin-bottom: 2rem;">
+                <h1>Registered User Directory</h1>
+                <p style="color: var(--text-secondary);">Manage registered accounts, view booking frequency and total spending.</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email Address</th>
+                            <th>Phone</th>
+                            <th>Joined Date</th>
+                            <th>Role</th>
+                            <th>Bookings</th>
+                            <th>Total Spent</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users-tbody">
+                        <!-- Populated via admin.js -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

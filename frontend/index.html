@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventSphere - Discover. Book. Experience.</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                EventSphere <span class="logo-badge">PRO</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="my-bookings.html">My Bookings</a></li>
+            </ul>
+            <div id="nav-user-container" class="nav-user">
+                <!-- Dynamically Populated -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Discover & Book Amazing Events</h1>
+                <p class="hero-subtitle">Explore concerts, tech summits, sports tournaments, comedy specials, and workshops near you.</p>
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <a href="events.html" class="btn btn-primary btn-lg">Explore All Events</a>
+                    <a href="register.html" class="btn btn-secondary btn-lg">Create Free Account</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Catalog Section -->
+        <section style="padding: 3rem 0;">
+            <div class="container">
+                <div class="catalog-header">
+                    <div>
+                        <h2>Upcoming Featured Events</h2>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Handpicked experiences happening across India</p>
+                    </div>
+                    <a href="events.html" class="btn btn-secondary btn-sm">View Full Catalog &rarr;</a>
+                </div>
+
+                <div id="events-grid" class="events-grid">
+                    <!-- Loaded via events.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Showcase -->
+        <section style="padding: 3rem 0; background: rgba(255, 255, 255, 0.02); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Explore Popular Categories</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.25rem; text-align: center;">
+                    <a href="events.html?category=Music" class="btn btn-secondary" style="padding: 1.25rem;">🎵 Music & Concerts</a>
+                    <a href="events.html?category=Technology" class="btn btn-secondary" style="padding: 1.25rem;">💻 Technology</a>
+                    <a href="events.html?category=Sports" class="btn btn-secondary" style="padding: 1.25rem;">⚽ Sports</a>
+                    <a href="events.html?category=Comedy" class="btn btn-secondary" style="padding: 1.25rem;">🎤 Stand-up Comedy</a>
+                    <a href="events.html?category=Business" class="btn btn-secondary" style="padding: 1.25rem;">💼 Business</a>
+                    <a href="events.html?category=Workshop" class="btn btn-secondary" style="padding: 1.25rem;">🎨 Workshops</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">EventSphere <span class="logo-badge">PRO</span></div>
+                    <p>India's premier ticket booking platform. Experience seamless digital reservation and instant ticket confirmation.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="events.html">Browse Events</a></li>
+                        <li><a href="my-bookings.html">My Bookings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="login.html">User Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="admin/login.html">Admin Portal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Cities</h4>
+                    <ul>
+                        <li><a href="events.html?location=Chennai">Chennai</a></li>
+                        <li><a href="events.html?location=Bengaluru">Bengaluru</a></li>
+                        <li><a href="events.html?location=Mumbai">Mumbai</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 EventSphere Platform Inc. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/events.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - EventSphere</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">EventSphere <span class="logo-badge">PRO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="my-bookings.html" class="active">My Bookings</a></li>
+            </ul>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container" style="padding-top: 2rem;">
+            <div style="margin-bottom: 2rem;">
+                <h1>My Bookings History</h1>
+                <p style="color: var(--text-secondary);">View active digital tickets, manage reservations, or cancel eligible bookings.</p>
+            </div>
+
+            <div id="my-bookings-container">
+                <!-- Loaded dynamically via my-bookings.js -->
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/my-bookings.js"></script>
+</body>
+</html>

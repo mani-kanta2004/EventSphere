@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Bookings - EventSphere Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="dashboard.html" class="logo">EventSphere <span class="logo-badge" style="background: var(--secondary);">ADMIN</span></a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <a href="dashboard.html" class="admin-nav-item">📊 Dashboard Overview</a>
+            <a href="events.html" class="admin-nav-item">📅 Events Catalog</a>
+            <a href="create-event.html" class="admin-nav-item">➕ Create Event</a>
+            <a href="bookings.html" class="admin-nav-item active">🎟️ All Bookings</a>
+            <a href="users.html" class="admin-nav-item">👥 Registered Users</a>
+        </aside>
+
+        <main class="admin-main">
+            <div style="margin-bottom: 2rem;">
+                <h1>All Customer Bookings</h1>
+                <p style="color: var(--text-secondary);">Audit transaction history, payment statuses, and issued ticket refs.</p>
+            </div>
+
+            <!-- Booking Filter Bar -->
+            <div class="filter-bar" style="margin-bottom: 1.5rem;">
+                <div>
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 0.2rem;">Status Filter</label>
+                    <select id="filter-booking-status" class="form-control" onchange="loadAdminBookings()">
+                        <option value="All">All Statuses</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="button" onclick="loadAdminBookings()" class="btn btn-secondary" style="height: 42px; margin-top: 1rem;">Refresh List</button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Event</th>
+                            <th>Tickets</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Booking</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-bookings-tbody">
+                        <!-- Populated via admin.js -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Payment Portal - EventSphere</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+    <style>
+        .payment-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .payment-tab {
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            background: var(--bg-input);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .payment-tab.active {
+            background: var(--primary);
+            color: #fff;
+        }
+        .payment-tab-pane {
+            display: none;
+        }
+        .payment-tab-pane.active {
+            display: block;
+        }
+        .demo-notice {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: var(--warning);
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">EventSphere <span class="logo-badge">PRO</span></a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container" style="max-width: 650px; padding-top: 2rem;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2.25rem; box-shadow: var(--shadow-lg);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+                    <div>
+                        <h2 id="pay-event-title" style="font-size: 1.3rem;">Event Title</h2>
+                        <div id="pay-ticket-count" style="font-size: 0.88rem; color: var(--text-secondary);">1 Ticket(s)</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Total</span>
+                        <div id="pay-total-amount" style="font-size: 1.5rem; font-weight: 700; color: var(--success);">₹0</div>
+                    </div>
+                </div>
+
+                <label style="font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); display: block; margin-bottom: 0.75rem;">Payment Method</label>
+                
+                <div class="payment-tabs">
+                    <div class="payment-tab active" data-method="UPI" style="width: 100%; text-align: center;">📱 Unified Payment Interface (UPI)</div>
+                </div>
+
+                <form id="payment-form">
+                    <!-- Pane 1: UPI -->
+                    <div id="pane-upi" class="payment-tab-pane active">
+                        <div class="form-group">
+                            <label for="upi-id">UPI ID / Virtual Payment Address (VPA)</label>
+                            <input type="text" id="upi-id" class="form-control" value="eventsphere@upi" placeholder="e.g. eventsphere@upi or 9876543210@paytm" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="payment-submit-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
+                        <span id="pay-submit-btn-text">Pay Now</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>

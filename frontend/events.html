@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Catalog - EventSphere</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">EventSphere <span class="logo-badge">PRO</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html" class="active">Events</a></li>
+                <li><a href="my-bookings.html">My Bookings</a></li>
+            </ul>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" style="padding-top: 2rem;">
+        <div class="container">
+            <div style="margin-bottom: 2rem;">
+                <h1>Explore Events</h1>
+                <p style="color: var(--text-secondary);">Find and book tickets for upcoming concerts, conferences, comedy shows & workshops.</p>
+            </div>
+
+            <!-- Search & Filtering Ribbon Wrapper -->
+            <div class="filter-card-wrapper">
+                <form id="filter-form" class="filter-bar">
+                    <div class="filter-group">
+                        <label for="search-input"><span>🔍</span> Search</label>
+                        <input type="text" id="search-input" class="form-control" placeholder="Search title, venue, city...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="category-filter"><span>🏷️</span> Category</label>
+                        <select id="category-filter" class="form-control">
+                            <option value="All">All Categories</option>
+                            <option value="Music">Music</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Business">Business</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Cultural">Cultural</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="location-filter"><span>📍</span> City / Location</label>
+                        <select id="location-filter" class="form-control">
+                            <option value="All">All Cities</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Coimbatore">Coimbatore</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sort-filter"><span>⇅</span> Sort By</label>
+                        <select id="sort-filter" class="form-control">
+                            <option value="date_asc">Date: Upcoming First</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="newest">Recently Added</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button type="button" onclick="resetFilters()" class="btn btn-secondary" style="height: 42px;">🔄 Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Events Grid -->
+            <div id="events-grid" class="events-grid">
+                <!-- Dynamically loaded via events.js -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                &copy; 2026 EventSphere Platform Inc. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/events.js"></script>
+</body>
+</html>

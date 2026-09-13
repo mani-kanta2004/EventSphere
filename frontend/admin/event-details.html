@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Analytics - EventSphere Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="dashboard.html" class="logo">EventSphere <span class="logo-badge" style="background: var(--secondary);">ADMIN</span></a>
+            <div id="nav-user-container" class="nav-user"></div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <a href="dashboard.html" class="admin-nav-item">📊 Dashboard Overview</a>
+            <a href="events.html" class="admin-nav-item active">📅 Events Catalog</a>
+            <a href="create-event.html" class="admin-nav-item">➕ Create Event</a>
+            <a href="bookings.html" class="admin-nav-item">🎟️ All Bookings</a>
+            <a href="users.html" class="admin-nav-item">👥 Registered Users</a>
+        </aside>
+
+        <main class="admin-main">
+            <a href="events.html" style="display: inline-block; margin-bottom: 1rem; color: var(--text-secondary);">&larr; Back to Events List</a>
+
+            <div style="margin-bottom: 2rem;">
+                <div id="evt-stat-organizer-badge" style="display:inline-block; background:rgba(99, 102, 241, 0.15); color:var(--primary); border:1px solid var(--primary); font-size:0.85rem; font-weight:600; padding:0.25rem 0.75rem; border-radius:20px; margin-bottom:0.6rem;">
+                    👤 Organizer: <span id="evt-stat-organizer-name">Loading...</span>
+                </div>
+                <h1 id="evt-stat-title">Event Performance Analytics</h1>
+                <p style="color: var(--text-secondary);">Individual event ticket breakdown, capacity chart, and customer purchase list.</p>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Total Capacity</div>
+                    <div id="evt-stat-capacity" class="metric-value">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Tickets Sold</div>
+                    <div id="evt-stat-sold" class="metric-value">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Tickets Available</div>
+                    <div id="evt-stat-available" class="metric-value">0</div>
+                </div>
+                <div class="metric-card" style="border-color: var(--primary);">
+                    <div class="metric-title" style="color: var(--primary);">Generated Revenue</div>
+                    <div id="evt-stat-revenue" class="metric-value" style="color: var(--success);">₹0</div>
+                </div>
+            </div>
+
+            <!-- Bookings List -->
+            <div style="margin-top: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Customer Purchases for This Event</h3>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="event-bookings-tbody">
+                            <!-- Populated via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
