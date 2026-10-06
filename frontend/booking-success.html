@@ -26,8 +26,9 @@
 
             <!-- Digital Ticket Pass Printable Component -->
             <div id="ticket-pass-card" class="ticket-card">
-                <div class="ticket-header">
+                <div class="ticket-header" style="display: flex; justify-content: space-between; align-items: center;">
                     <div class="logo" style="font-size: 1.2rem;">EventSphere Ticket Pass</div>
+                    <div id="tkt-ticket-id" style="font-family: monospace; font-size: 0.9rem; font-weight: 600; color: var(--primary-light, #818cf8);"></div>
                 </div>
 
                 <h2 id="tkt-event-title" style="font-size: 1.6rem; margin-bottom: 1rem;">Event Title</h2>
@@ -35,23 +36,23 @@
                 <div class="ticket-details-grid">
                     <div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">DATE & TIME</div>
-                        <div id="tkt-event-date" style="font-weight: 600;">Aug 25, 2026 at 06:00 PM</div>
+                        <div id="tkt-event-date" style="font-weight: 600;">-</div>
                     </div>
                     <div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">LOCATION & VENUE</div>
-                        <div id="tkt-event-venue" style="font-weight: 600;">YMCA Grounds, Chennai</div>
+                        <div id="tkt-event-venue" style="font-weight: 600;">-</div>
                     </div>
                     <div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">TICKETS</div>
-                        <div id="tkt-count" style="font-weight: 600;">2 Ticket(s)</div>
+                        <div id="tkt-count" style="font-weight: 600;">-</div>
                     </div>
                     <div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">TOTAL PAID</div>
-                        <div id="tkt-amount" style="font-weight: 700; color: var(--success);">₹2,147</div>
+                        <div id="tkt-amount" style="font-weight: 700; color: var(--success);">-</div>
                     </div>
                     <div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">TRANSACTION ID</div>
-                        <div id="tkt-txn-id" style="font-family: monospace; font-size: 0.88rem;">TXN-8F29KDJ72</div>
+                        <div id="tkt-txn-id" style="font-family: monospace; font-size: 0.88rem;">-</div>
                     </div>
                     <div>
                         <div style="font-size: 0.8rem; color: var(--text-muted);">STATUS</div>
@@ -60,7 +61,7 @@
                 </div>
 
                 <div class="ticket-qr-placeholder">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EventSphere-Digital-Pass" alt="QR Code">
+                    <img id="tkt-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EventSphere-Digital-Pass" alt="QR Code">
                 </div>
                 <div style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem;">
                     Scan at venue entry gate
@@ -91,7 +92,12 @@
 
             const sessionStr = sessionStorage.getItem('eventsphere_recent_booking');
             if (sessionStr) {
-                booking = JSON.parse(sessionStr);
+                try {
+                    const sessionBooking = JSON.parse(sessionStr);
+                    if (!bookingId || sessionBooking._id === bookingId || sessionBooking.id === bookingId) {
+                        booking = sessionBooking;
+                    }
+                } catch (e) {}
             }
 
             if (!booking && bookingId) {
@@ -103,13 +109,32 @@
 
             if (booking) {
                 const event = booking.event || {};
-                document.getElementById('tkt-ticket-id').textContent = booking.ticketId;
-                document.getElementById('tkt-event-title').textContent = event.title || 'Event Title';
-                document.getElementById('tkt-event-date').textContent = `${formatDate(event.date)} at ${event.time}`;
-                document.getElementById('tkt-event-venue').textContent = `${event.venue || ''}, ${event.location || ''}`;
-                document.getElementById('tkt-count').textContent = `${booking.ticketCount} Ticket(s)`;
-                document.getElementById('tkt-amount').textContent = formatINR(booking.amount);
-                document.getElementById('tkt-txn-id').textContent = booking.transactionId;
+                const tktIdElem = document.getElementById('tkt-ticket-id');
+                if (tktIdElem) tktIdElem.textContent = booking.ticketId || '';
+
+                const titleElem = document.getElementById('tkt-event-title');
+                if (titleElem) titleElem.textContent = event.title || 'Event Title';
+
+                const dateElem = document.getElementById('tkt-event-date');
+                if (dateElem) dateElem.textContent = `${formatDate(event.date)}${event.time ? ' at ' + event.time : ''}`;
+
+                const venueElem = document.getElementById('tkt-event-venue');
+                if (venueElem) venueElem.textContent = `${event.venue || ''}${event.venue && event.location ? ', ' : ''}${event.location || ''}`;
+
+                const countElem = document.getElementById('tkt-count');
+                if (countElem) countElem.textContent = `${booking.ticketCount} Ticket(s)`;
+
+                const amountElem = document.getElementById('tkt-amount');
+                if (amountElem) amountElem.textContent = formatINR(booking.amount);
+
+                const txnElem = document.getElementById('tkt-txn-id');
+                if (txnElem) txnElem.textContent = booking.transactionId || '';
+
+                const qrElem = document.getElementById('tkt-qr-img');
+                if (qrElem) {
+                    const qrData = encodeURIComponent(`EventSphere-Ticket-${booking.ticketId || booking._id}`);
+                    qrElem.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
+                }
             }
         });
     </script>
